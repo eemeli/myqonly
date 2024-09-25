@@ -43,5 +43,6 @@
     "storage",
     "https://phabricator.services.mozilla.com/*",
     "https://bugzilla.mozilla.org/*"
-  ]
+  ],
+  "default_locale": "en"
 }

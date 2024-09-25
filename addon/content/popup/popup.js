@@ -6,6 +6,7 @@ const Panel = {
       document.body.setAttribute("has-new-features", featureRev);
       let link = document.getElementById("has-new-features");
       link.href = link.href + "#featureRev-" + featureRev;
+      link.textContent = browser.i18n.getMessage("has-new-features");
     }
 
     window.addEventListener("click", this);
@@ -57,7 +58,6 @@ const Panel = {
   },
 
   async updatePanel() {
-    let status = document.getElementById("status");
     let states = await browser.runtime.sendMessage({ name: "get-states", });
     let total = 0;
     for (let [, state,] of states) {
@@ -75,10 +75,12 @@ const Panel = {
           state.data.reviewTotal || 0);
         document.body.setAttribute("total-bugzilla-needinfos",
           state.data.needinfoTotal || 0);
-        document.getElementById("bugzilla-review-num").textContent =
-          state.data.reviewTotal || 0;
-        document.getElementById("bugzilla-needinfo-num").textContent =
-          state.data.needinfoTotal || 0;
+        document.querySelector("#bugzilla-needinfos a").textContent =
+          browser.i18n.getMessage("bugzilla-needinfos",
+            state.data.needinfoTotal || 0);
+        document.querySelector("#bugzilla-reviews a").textContent =
+          browser.i18n.getMessage("bugzilla-reviews",
+            state.data.reviewTotal || 0);
 
         total += serviceTotal;
         break;
@@ -92,6 +94,8 @@ const Panel = {
         let phabDisconnected =
           document.getElementById("phabricator-disconnected");
         if (!state.data.connected) {
+          phabDisconnected.textContent =
+            browser.i18n.getMessage("phabricator-disconnected");
           phabDisconnected.classList.remove("hidden");
         } else {
           phabDisconnected.classList.add("hidden");
@@ -100,16 +104,17 @@ const Panel = {
         let serviceUserTotal = state.data.userReviewTotal || 0;
 
         document.body.setAttribute("total-phabricator-user-reviews",
-          serviceUserTotal || 0);
-        document.getElementById("phabricator-user-review-num").textContent =
-          serviceUserTotal || 0;
+          serviceUserTotal);
+        document.querySelector("#phabricator-user-reviews a").textContent =
+          browser.i18n.getMessage("phabricator-user-reviews", serviceUserTotal);
 
         let serviceGroupTotal = state.data.groupReviewTotal || 0;
 
         document.body.setAttribute("total-phabricator-group-reviews",
-          serviceGroupTotal || 0);
-        document.getElementById("phabricator-group-review-num").textContent =
-          serviceGroupTotal || 0;
+          serviceGroupTotal);
+        document.querySelector("#phabricator-group-reviews a").textContent =
+          browser.i18n.getMessage(
+            "phabricator-group-reviews", serviceGroupTotal);
         document.getElementById("phabricator-group-reviews").hidden =
           serviceGroupTotal == 0;
 
@@ -119,12 +124,14 @@ const Panel = {
       }
       case "github": {
         let serviceTotal = state.data.reviewTotal || 0;
-        let reviewUrl = state.data.reviewUrl || "https://github.com/pulls/review-requested";
+        let reviewUrl = state.data.reviewUrl ||
+          "https://github.com/pulls/review-requested";
         document.body.setAttribute("total-github-reviews",
           serviceTotal || 0);
-        document.getElementById("github-review-num").textContent =
-          serviceTotal || 0;
-        document.getElementById("github-review-link").href = reviewUrl;
+        let link = document.getElementById("github-review-link");
+        link.href = reviewUrl;
+        link.textContent =
+          browser.i18n.getMessage("github-reviews", serviceTotal);
 
         total += serviceTotal;
         break;
@@ -132,12 +139,12 @@ const Panel = {
       }
     }
 
-    if (total) {
-      let noun = total > 1 ? "things" : "thing";
-      status.textContent = `Found ${total} ${noun} to do`;
-    } else {
-      status.textContent = "Nothing to do! \\o/";
-    }
+    let statusMsgId;
+    if (total === 0) statusMsgId = "status-zero";
+    else if (total === 1) statusMsgId = "status-one";
+    else statusMsgId = "status-other";
+    document.getElementById("status").textContent =
+      browser.i18n.getMessage(statusMsgId, total);
   },
 };
 

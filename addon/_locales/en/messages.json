@@ -1,0 +1,36 @@
+{
+  "bugzilla-needinfos": {
+    "message": "$NUM$ needinfo(s) on Bugzilla",
+    "placeholders": { "num": { "content": "$1" } }
+  },
+  "bugzilla-reviews": {
+    "message": "$NUM$ review(s) on Bugzilla",
+    "placeholders": { "num": { "content": "$1" } }
+  },
+
+  "github-reviews": {
+    "message": "$NUM$ review(s) on Github",
+    "placeholders": { "num": { "content": "$1" } }
+  },
+
+  "phabricator-disconnected": {
+    "message": "Warning: Not logged in to Phabricator"
+  },
+  "phabricator-group-reviews": {
+    "message": "$NUM$ reviewer group review(s) on Phabricator",
+    "placeholders": { "num": { "content": "$1" } }
+  },
+  "phabricator-user-reviews": {
+    "message": "$NUM$ review(s) on Phabricator",
+    "placeholders": { "num": { "content": "$1" } }
+  },
+
+  "has-new-features": { "message": "New features" },
+
+  "status-zero": { "message": "Nothing to do! \\o/" },
+  "status-one": { "message": "Found 1 thing to do" },
+  "status-other": {
+    "message": "Found $NUM$ things to do",
+    "placeholders": { "num": { "content": "$1" } }
+  }
+}
