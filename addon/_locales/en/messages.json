@@ -1,36 +1,30 @@
 {
+  "@@format": "mf2",
+
   "bugzilla-needinfos": {
-    "message": "$NUM$ needinfo(s) on Bugzilla",
-    "placeholders": { "num": { "content": "$1" } }
+    "message": ".input {$num :number} .match $num one {{1 needinfo on Bugzilla}} * {{{$num} needinfos on Bugzilla}}"
   },
   "bugzilla-reviews": {
-    "message": "$NUM$ review(s) on Bugzilla",
-    "placeholders": { "num": { "content": "$1" } }
+    "message": ".input {$num :number} .match $num one {{1 review on Bugzilla}} * {{{$num} reviews on Bugzilla}}"
   },
 
   "github-reviews": {
-    "message": "$NUM$ review(s) on Github",
-    "placeholders": { "num": { "content": "$1" } }
+    "message": ".input {$num :number} .match $num one {{1 review on GitHub}} * {{{$num} reviews on GitHub}}"
   },
 
   "phabricator-disconnected": {
     "message": "Warning: Not logged in to Phabricator"
   },
   "phabricator-group-reviews": {
-    "message": "$NUM$ reviewer group review(s) on Phabricator",
-    "placeholders": { "num": { "content": "$1" } }
+    "message": ".input {$num :number} .match $num one {{1 reviewer group review on Phabricator}} * {{{$num} reviewer group reviews on Phabricator}}"
   },
   "phabricator-user-reviews": {
-    "message": "$NUM$ review(s) on Phabricator",
-    "placeholders": { "num": { "content": "$1" } }
+    "message": ".input {$num :number} .match $num one {{1 review on Phabricator}} * {{{$num} reviews on Phabricator}}"
   },
 
   "has-new-features": { "message": "New features" },
 
-  "status-zero": { "message": "Nothing to do! \\o/" },
-  "status-one": { "message": "Found 1 thing to do" },
-  "status-other": {
-    "message": "Found $NUM$ things to do",
-    "placeholders": { "num": { "content": "$1" } }
+  "status": {
+    "message": ".input {$total :number} .match $total 0 {{Nothing to do! \\\\o/}} one {{Found 1 thing to do}} * {{Found {$total} things to do}}"
   }
 }

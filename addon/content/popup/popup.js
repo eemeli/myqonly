@@ -77,10 +77,10 @@ const Panel = {
           state.data.needinfoTotal || 0);
         document.querySelector("#bugzilla-needinfos a").textContent =
           browser.i18n.getMessage("bugzilla-needinfos",
-            state.data.needinfoTotal || 0);
+            { num: state.data.needinfoTotal || 0 });
         document.querySelector("#bugzilla-reviews a").textContent =
           browser.i18n.getMessage("bugzilla-reviews",
-            state.data.reviewTotal || 0);
+            { num: state.data.reviewTotal || 0 });
 
         total += serviceTotal;
         break;
@@ -106,7 +106,8 @@ const Panel = {
         document.body.setAttribute("total-phabricator-user-reviews",
           serviceUserTotal);
         document.querySelector("#phabricator-user-reviews a").textContent =
-          browser.i18n.getMessage("phabricator-user-reviews", serviceUserTotal);
+          browser.i18n.getMessage("phabricator-user-reviews",
+            { num: serviceUserTotal });
 
         let serviceGroupTotal = state.data.groupReviewTotal || 0;
 
@@ -114,7 +115,7 @@ const Panel = {
           serviceGroupTotal);
         document.querySelector("#phabricator-group-reviews a").textContent =
           browser.i18n.getMessage(
-            "phabricator-group-reviews", serviceGroupTotal);
+            "phabricator-group-reviews", { num: serviceGroupTotal });
         document.getElementById("phabricator-group-reviews").hidden =
           serviceGroupTotal == 0;
 
@@ -131,7 +132,7 @@ const Panel = {
         let link = document.getElementById("github-review-link");
         link.href = reviewUrl;
         link.textContent =
-          browser.i18n.getMessage("github-reviews", serviceTotal);
+          browser.i18n.getMessage("github-reviews", { num: serviceTotal });
 
         total += serviceTotal;
         break;
@@ -139,12 +140,8 @@ const Panel = {
       }
     }
 
-    let statusMsgId;
-    if (total === 0) statusMsgId = "status-zero";
-    else if (total === 1) statusMsgId = "status-one";
-    else statusMsgId = "status-other";
     document.getElementById("status").textContent =
-      browser.i18n.getMessage(statusMsgId, total);
+      browser.i18n.getMessage("status", { total });
   },
 };
 
